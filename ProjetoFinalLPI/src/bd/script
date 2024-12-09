@@ -1,0 +1,48 @@
+CREATE TABLE Pessoa 
+( 
+ ID INT PRIMARY KEY,  
+ Nome VARCHAR(n) NOT NULL,  
+ Email VARCHAR(n) NOT NULL,  
+ UNIQUE (Email)
+); 
+
+CREATE TABLE Cliente 
+( 
+ Divida FLOAT NOT NULL DEFAULT '0',  
+ CPF VARCHAR(n) NOT NULL,  
+ idPessoa INT,  
+ UNIQUE (CPF)
+); 
+
+CREATE TABLE Funcionario 
+( 
+ Salario FLOAT NOT NULL DEFAULT '0',  
+ idPessoa INT,  
+); 
+
+CREATE TABLE Agendamento 
+( 
+ ID INT PRIMARY KEY,  
+ Data DATE NOT NULL,  
+ idCliente INT,  
+); 
+
+CREATE TABLE Servico 
+( 
+ ID INT PRIMARY KEY,  
+ Descricao VARCHAR(n) NOT NULL,  
+ idAgendamento INT,  
+); 
+
+CREATE TABLE FuncionarioServico 
+( 
+ idFuncionario INT,  
+ idServico INT,  
+); 
+
+ALTER TABLE Cliente ADD FOREIGN KEY(idPessoa) REFERENCES Pessoa (idPessoa)
+ALTER TABLE Funcionario ADD FOREIGN KEY(idPessoa) REFERENCES Pessoa (idPessoa)
+ALTER TABLE Agendamento ADD FOREIGN KEY(idCliente) REFERENCES Cliente (idCliente)
+ALTER TABLE Servico ADD FOREIGN KEY(idAgendamento) REFERENCES Agendamento (idAgendamento)
+ALTER TABLE FuncionarioServico ADD FOREIGN KEY(idFuncionario) REFERENCES Pessoa (idFuncionario)
+ALTER TABLE FuncionarioServico ADD FOREIGN KEY(idServico) REFERENCES Pessoa (idServico)
